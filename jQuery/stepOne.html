@@ -5,21 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/resources/demos/style.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      $(function () {
+        $("#datepicker").datepicker();
+      });
+    </script>
   </head>
   <body>
+    <div id="abc">글자색 변환</div>
     <script>
-      function $(selector) {
-        var click = function (callback) {
-          callback();
-        };
-        return {
-          click: click,
-        };
-      }
+      const numbers = [1, 2, 3, 5, 4];
 
-      $("#abc").click(function () {
-        console.log(" 클릭으로 성공");
+      const num = numbers.map((x) => {
+        return x * 10;
       });
+
+      // const cities = [
+      //   {name: 'da'}
+      // ]
+
+      const num1 = numbers.filter((x) => x < 4);
+      console.log(num1);
+
+      const num2 = numbers.sort((x,y) => );
+
+      console.log(num2);
     </script>
   </body>
 </html>

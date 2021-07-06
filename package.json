@@ -1,0 +1,23 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "node online",
+  "main": "indexNode.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/choisuyang/Js-Factory.git"
+  },
+  "author": "alex",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/choisuyang/Js-Factory/issues"
+  },
+  "homepage": "https://github.com/choisuyang/Js-Factory#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "uuid4": "^2.0.2"
+  }
+}
