@@ -1,29 +1,33 @@
-const express = require("express");
-const router = express.Router();
-function testMiddleware(request, response, next) {
-  console.log("first middleware");
-  next();
-}
-function testMiddleware2(request, response, next) {
-  console.log("second middleware");
-  next();
-}
-router.get("/", testMiddleware, testMiddleware2, (request, response) => {
-  response.send("admin 이후 url");
-});
+// const express = require("express");
+// const router = express.Router();
 
-router.get("/products", (request, response) => {
-  response.render("admin/products.html", {
-    message: "hello message333",
-  });
-});
+// function testMiddleWare(req, res, next) {
+//   console.log("첫번째 미들웨어");
+//   next();
+// }
 
-router.get("/products/write", (request, response) => {
-  response.render("admin/write.html");
-});
+// function testMiddleWare2(req, res, next) {
+//   console.log("두번째 미들웨어");
+//   next();
+// }
 
-router.post("/products/write", (request, response) => {
-  response.send(request.body.name);
-});
+// router.get("/", testMiddleWare, testMiddleWare2, (req, res) => {
+//   res.send("admin app");
+// });
 
-module.exports = router;
+// router.get("/products", (_, res) => {
+//   res.render(
+//     "admin/products.html",
+//     { message: "hello" } // message 란 변수를 템플릿으로 내보낸다.
+//   );
+// });
+
+// router.get("/products/write", (_, res) => {
+//   res.render("admin/write.html");
+// });
+
+// router.post("/products/write", (req, res) => {
+//   res.send(req.body);
+// });
+
+// module.exports = router;

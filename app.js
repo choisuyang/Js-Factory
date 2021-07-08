@@ -1,43 +1,74 @@
 const express = require("express");
-const admin = require("./routes/admin");
-const content = require("./routes/content");
 const nunjucks = require("nunjucks");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 
-const app = express();
-const port = 3000;
-nunjucks.configure("template", {
-  autoescape: true,
-  express: app,
-});
+class App {
+  constructor() {
+    this.app = express();
 
-// middleware
-app.use(logger("dev"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/uploads", express.static("uploads"));
+    // ViewEngine
+    this.setViewEngine();
 
-app.use((request, response, next) => {
-  app.locals.isLogin = false;
-  next();
-});
+    // MiddleWare
+    this.setMiddleWare();
 
-app.get("/", (request, response) => {
-  response.send("hello express");
-});
+    // Static
+    this.setStatic();
 
-app.use("/admin", admin);
-app.use("/content", content);
+    // Locals
+    this.setLocals();
 
-app.use((request, response, _) => {
-  response.status(400).render("common/404.html");
-});
+    // Routing
+    this.getRouter();
 
-app.use((request, response, _) => {
-  response.status(500).render("common/500.html");
-});
+    // 404 page
+    this.status404();
 
-app.listen(port, () => {
-  console.log("Express listening on port", port);
-});
+    // ErorrHandler
+    this.errorHandler();
+  }
+
+  setMiddleWare() {
+    this.app.use(logger("dev"));
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: false }));
+  }
+
+  setViewEngine() {
+    nunjucks.configure("template", {
+      autoescape: true,
+      express: this.app,
+    });
+  }
+
+  setStatic() {
+    this.app.use("/uploads", express.static("uploads"));
+  }
+
+  setLocals() {
+    this.app.use((request, response, next) => {
+      this.app.locals.isLogin = false;
+      this.app.locals.req_path = request.path;
+      next();
+    });
+  }
+
+  getRouter() {
+    this.app.use(require("./controllers"));
+  }
+
+  status404() {
+    this.app.use((request, response, _) => {
+      response.status(400).render("common/404.html");
+    });
+  }
+
+  errorHandler() {
+    this.app.use((request, response, _) => {
+      response.status(500).render("common/500.html");
+    });
+  }
+}
+
+module.exports = new App().app;
